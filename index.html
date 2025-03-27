@@ -15,6 +15,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css"
     />
+    <link href="https://unpkg.com/maplibre-gl@5.3.0/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        /* Style the map container */
+        #map {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
     <script src="https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/js/bulma-carousel.min.js"></script>
   </head>
 
@@ -46,6 +54,17 @@
         <figure class="image">
           <img src="images/cafe_front.jpg.webp" />
         </figure>
+      </div>
+    </section>
+
+    <section class="map-section mt-5">
+      <div class="container mb-3">
+        <div class="columns">
+          <div class="column">
+            <h2>Unser Café befindet sich in der <a href="https://www.google.com/maps/dir//Deubener%20Stra%C3%9Fe%2024,%2001159%20Dresden">Deubener Str. 24 in Dresden (Link zu Google Maps)</a>, direkt neben dem Alten Annenfriedhof. Wir sind wunderbar zu Fuß zu erreichen, Parkplätze sind ausreichend vorhanden.</h2>
+          </div>
+        </div>
+        <div id="map"></div>
       </div>
     </section>
 
@@ -112,6 +131,27 @@
         </div>
       </footer>
     </section>
+
+    <script src="https://unpkg.com/maplibre-gl@5.3.0/dist/maplibre-gl.js"></script>
+    <script>
+        // Initialize the map
+        const map = new maplibregl.Map({
+          container: 'map',
+          style: 'https://tiles.stadiamaps.com/styles/alidade_smooth.json',  // Style URL; see our documentation for more options
+          center: [13.692613955787895,51.040337547751506],  // Initial focus coordinate
+          zoom: 18
+        });
+    
+        // Add a marker at the specified position (Dresden)
+        const marker = new maplibregl.Marker()
+            .setLngLat([13.692613955787895,51.040337547751506]) // Coordinates for Dresden
+            .addTo(map);
+    
+        // Optionally, you can customize the marker (e.g., with a popup)
+        marker.setPopup(new maplibregl.Popup({ offset: 25 })
+            .setHTML("<h3>Dresden, Deubener Str. 24</h3><p>Redwood Café</p>"));
+        map.addControl(new maplibregl.NavigationControl());
+    </script>
   </body>
 </html>
 
